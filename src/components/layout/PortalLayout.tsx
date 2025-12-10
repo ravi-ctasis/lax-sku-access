@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/context/WishlistContext';
 import {
   LayoutDashboard,
   Package,
@@ -11,6 +12,7 @@ import {
   Menu,
   X,
   User,
+  Heart,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Footer } from './Footer';
 
 interface PortalLayoutProps {
   children: ReactNode;
@@ -36,6 +39,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const { totalItems } = useCart();
+  const { totalItems: wishlistItems } = useWishlist();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
@@ -43,7 +47,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Top Navigation Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-card border-b shadow-sm">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,6 +87,24 @@ export function PortalLayout({ children }: PortalLayoutProps) {
 
             {/* Right Section */}
             <div className="flex items-center gap-2">
+              {/* Wishlist */}
+              <Link
+                to="/wishlist"
+                className={cn(
+                  'relative flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200',
+                  location.pathname === '/wishlist'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                )}
+              >
+                <Heart className="h-5 w-5" />
+                {wishlistItems > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-red-500 text-white text-xs">
+                    {wishlistItems}
+                  </Badge>
+                )}
+              </Link>
+
               {/* Cart */}
               <Link
                 to="/cart"
@@ -117,6 +139,15 @@ export function PortalLayout({ children }: PortalLayoutProps) {
                     <p className="text-sm font-medium">John Mitchell</p>
                     <p className="text-xs text-muted-foreground">ACME Corporation</p>
                   </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    <User className="h-4 w-4 mr-2" />
+                    My Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/wishlist')}>
+                    <Heart className="h-4 w-4 mr-2" />
+                    Wishlist
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
                     <LogOut className="h-4 w-4 mr-2" />
@@ -164,17 +195,46 @@ export function PortalLayout({ children }: PortalLayoutProps) {
                   </Link>
                 );
               })}
+              <Link
+                to="/wishlist"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
+                  location.pathname === '/wishlist'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                )}
+              >
+                <Heart className="h-5 w-5" />
+                <span className="font-medium">Wishlist</span>
+              </Link>
+              <Link
+                to="/profile"
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
+                  location.pathname === '/profile'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                )}
+              >
+                <User className="h-5 w-5" />
+                <span className="font-medium">My Profile</span>
+              </Link>
             </nav>
           </div>
         )}
       </header>
 
       {/* Main Content */}
-      <main className="pt-16 min-h-screen">
+      <main className="pt-16 flex-1">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {children}
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/context/WishlistContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Plus, Minus, Package } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Package, Heart } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
@@ -14,10 +16,14 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const inWishlist = isInWishlist(product.id);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (quantity > 0 && quantity <= product.stock) {
       addItem(product, quantity);
       toast.success(`Added ${quantity}x ${product.name} to cart`);
@@ -25,20 +31,36 @@ export function ProductCard({ product }: ProductCardProps) {
     }
   };
 
-  const incrementQuantity = () => {
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (inWishlist) {
+      removeFromWishlist(product.id);
+      toast.success(`Removed ${product.name} from wishlist`);
+    } else {
+      addToWishlist(product);
+      toast.success(`Added ${product.name} to wishlist`);
+    }
+  };
+
+  const incrementQuantity = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (quantity < product.stock) {
       setQuantity((prev) => prev + 1);
     }
   };
 
-  const decrementQuantity = () => {
+  const decrementQuantity = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
   };
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-card-hover animate-fade-in">
+    <Card 
+      className="group overflow-hidden transition-all duration-300 hover:shadow-card-hover animate-fade-in cursor-pointer"
+      onClick={() => navigate(`/product/${product.id}`)}
+    >
       <div className="relative aspect-square bg-muted overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
           <Package className="h-16 w-16 text-muted-foreground/30" />
@@ -48,7 +70,18 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.brand}
           </Badge>
         </div>
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 flex items-center gap-2">
+          <button
+            onClick={handleWishlistToggle}
+            className={cn(
+              "w-8 h-8 rounded-full bg-background/80 backdrop-blur flex items-center justify-center transition-colors",
+              inWishlist ? "text-red-500" : "text-muted-foreground hover:text-red-500"
+            )}
+          >
+            <Heart className={cn("h-4 w-4", inWishlist && "fill-red-500")} />
+          </button>
+        </div>
+        <div className="absolute bottom-3 right-3">
           <Badge
             variant="outline"
             className={cn(
@@ -82,7 +115,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="text-sm text-muted-foreground">{product.category}</span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center border rounded-lg">
             <button
               onClick={decrementQuantity}
