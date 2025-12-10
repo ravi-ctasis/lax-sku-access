@@ -149,5 +149,5 @@ export const orders: Order[] = [
   },
 ];
 
-export const brands = ['TechPro', 'IndustrialMax', 'SafetyFirst'];
-export const categories = ['Power Tools', 'Workstations', 'Storage', 'Safety Gear'];
+export const brands = ['TechPro', 'IndustrialMax', 'LAX'];
+export const categories = ['Power Tools', 'Workstations', 'Storage', 'Gadgets'];

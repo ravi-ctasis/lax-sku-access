@@ -63,7 +63,7 @@ const Login = () => {
                 <span className="text-secondary">Simplified</span>
               </h1>
               <p className="text-primary-foreground/80 text-lg max-w-md">
-                Access your assigned products, manage orders — all in one place.
+                Access products, manage orders — all in one place.
               </p>
             </div>
             
@@ -74,7 +74,7 @@ const Login = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-primary-foreground/90">View products assigned to you</span>
+                <span className="text-primary-foreground/90">View products</span>
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center">
