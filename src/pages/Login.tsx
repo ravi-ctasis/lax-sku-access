@@ -42,9 +42,14 @@ const Login = () => {
         <div className="relative z-10 flex flex-col justify-between p-12 text-primary-foreground">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 bg-primary-foreground/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                <span className="text-2xl font-bold">L</span>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-transparent">
+                <img
+                  src="/favicon-16x16.png"
+                  alt="LAX Logo"
+                  className="w-10 h-10 object-contain"
+                />
               </div>
+
               <span className="text-2xl font-bold">LAX Customer Portal</span>
             </div>
             {/* <p className="text-primary-foreground/70 text-sm">Customer Access System</p> */}

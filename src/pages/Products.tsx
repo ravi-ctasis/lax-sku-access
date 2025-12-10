@@ -142,12 +142,12 @@ const Products = () => {
         </div>
 
         {/* Results Count */}
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
             Showing <span className="font-medium text-foreground">{filteredProducts.length}</span> of{' '}
             <span className="font-medium text-foreground">{products.length}</span> products
           </p>
-        </div>
+        </div> */}
 
         {/* Product Grid */}
         {filteredProducts.length > 0 ? (

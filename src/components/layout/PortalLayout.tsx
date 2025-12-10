@@ -54,8 +54,12 @@ export function PortalLayout({ children }: PortalLayoutProps) {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">L</span>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-transparent">
+                <img
+                  src="/favicon-16x16.png"
+                  alt="LAX Logo"
+                  className="w-10 h-10 object-contain"
+                />
               </div>
               <div className="hidden sm:block">
                 <h1 className="font-semibold text-foreground">LAX Customer Portal</h1>

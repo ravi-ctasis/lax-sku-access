@@ -110,7 +110,7 @@ export default function ProductDetails() {
             </div>
 
             {/* Rating */}
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star key={star} className={cn(
@@ -120,7 +120,7 @@ export default function ProductDetails() {
                 ))}
               </div>
               <span className="text-sm text-muted-foreground">(24 reviews)</span>
-            </div>
+            </div> */}
 
             {/* Price */}
             <div className="flex items-baseline gap-2">
@@ -192,7 +192,7 @@ export default function ProductDetails() {
             </div>
 
             {/* Features */}
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t">
+            {/* <div className="grid grid-cols-3 gap-4 pt-4 border-t">
               <div className="flex flex-col items-center text-center gap-2">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <Truck className="h-5 w-5 text-primary" />
@@ -211,7 +211,7 @@ export default function ProductDetails() {
                 </div>
                 <span className="text-xs text-muted-foreground">Easy Returns</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -220,7 +220,7 @@ export default function ProductDetails() {
           <TabsList>
             <TabsTrigger value="details">Details</TabsTrigger>
             <TabsTrigger value="specifications">Specifications</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            {/* <TabsTrigger value="reviews">Reviews</TabsTrigger> */}
           </TabsList>
           <TabsContent value="details" className="mt-4">
             <Card>
@@ -259,14 +259,14 @@ export default function ProductDetails() {
               </CardContent>
             </Card>
           </TabsContent>
-          <TabsContent value="reviews" className="mt-4">
+          {/* <TabsContent value="reviews" className="mt-4">
             <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold text-lg mb-4">Customer Reviews</h3>
                 <p className="text-muted-foreground">No reviews yet. Be the first to review this product!</p>
               </CardContent>
             </Card>
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
 
         {/* Suggested Products */}

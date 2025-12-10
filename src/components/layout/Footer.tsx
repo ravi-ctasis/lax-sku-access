@@ -4,9 +4,8 @@ import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'luc
 export function Footer() {
   return (
     <footer className="bg-card border-t">
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-gradient-primary rounded-lg flex items-center justify-center">
@@ -33,7 +32,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Quick Links</h4>
             <ul className="space-y-2">
@@ -65,7 +63,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Support</h4>
             <ul className="space-y-2">
@@ -97,7 +94,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div className="space-y-4">
             <h4 className="font-semibold text-foreground">Contact Us</h4>
             <ul className="space-y-3">
@@ -121,10 +117,10 @@ export function Footer() {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Bar */}
-        <div className="mt-10 pt-6 border-t">
+        <div className="mt-0 pt-6 border-t">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} LAX Customer Portal. All rights reserved.
