@@ -62,22 +62,33 @@ export function ProductCard({ product }: ProductCardProps) {
       onClick={() => navigate(`/product/${product.id}`)}
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* IMAGE CENTER */}
+        <div className="absolute inset-0 flex items-center justify-center px-4">
           {product.image ? (
             <img
               src={product.image}
-              alt={product.brand}
-              className="h-20 w-20 object-contain opacity-90"
+              alt={product.brand || product.sku || 'product'}
+              loading="lazy"
+              onError={(e) => {
+                // fallback to placeholder if image fails to load
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = '/images/placeholder-product.png';
+              }}
+              className="max-w-[100%] max-h-[100%] object-contain transition-transform duration-200 group-hover:scale-105"
             />
           ) : (
-            <Package className="h-10 w-10 text-muted-foreground/30" />
+            <Package className="h-12 w-12 text-muted-foreground/30" />
           )}
         </div>
+
+        {/* BRAND BADGE */}
         <div className="absolute top-3 left-3">
           <Badge variant="secondary" className="text-xs font-medium">
             {product.brand}
           </Badge>
         </div>
+
+        {/* WISHLIST */}
         <div className="absolute top-3 right-3 flex items-center gap-2">
           <button
             onClick={handleWishlistToggle}
@@ -89,6 +100,8 @@ export function ProductCard({ product }: ProductCardProps) {
             <Heart className={cn("h-4 w-4", inWishlist && "fill-red-500")} />
           </button>
         </div>
+
+        {/* STOCK BADGE */}
         <div className="absolute bottom-3 right-3">
           <Badge
             variant="outline"
@@ -97,8 +110,8 @@ export function ProductCard({ product }: ProductCardProps) {
               product.stock > 20
                 ? 'border-success/30 text-success bg-success/5'
                 : product.stock > 0
-                ? 'border-warning/30 text-warning bg-warning/5'
-                : 'border-destructive/30 text-destructive bg-destructive/5'
+                  ? 'border-warning/30 text-warning bg-warning/5'
+                  : 'border-destructive/30 text-destructive bg-destructive/5'
             )}
           >
             {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
