@@ -135,13 +135,13 @@ export function PortalLayout({ children }: PortalLayoutProps) {
                     <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                       <User className="h-4 w-4 text-muted-foreground" />
                     </div>
-                    <span className="hidden lg:inline text-sm font-medium">John Mitchell</span>
+                    <span className="hidden lg:inline text-sm font-medium">Ross Stores</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium">John Mitchell</p>
-                    <p className="text-xs text-muted-foreground">ACME Corporation</p>
+                    <p className="text-sm font-medium">Ross Stores</p>
+                    <p className="text-xs text-muted-foreground">Ross Stores Inc.</p>
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => navigate('/profile')}>

@@ -61,7 +61,10 @@ const Orders = () => {
                   {/* Order Info */}
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
+                      <span className='flex'>
+                      Order Id: &nbsp;
                       <h3 className="font-semibold text-foreground">{order.id}</h3>
+                      </span>
                       <StatusBadge status={order.status} />
                     </div>
                     <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -69,11 +72,6 @@ const Orders = () => {
                         <Calendar className="h-4 w-4" />
                         <span>{order.date}</span>
                       </div>
-                      {order.poNumber && (
-                        <div className="flex items-center gap-1">
-                          <span>PO: {order.poNumber}</span>
-                        </div>
-                      )}
                       <span>{order.items.length} item{order.items.length > 1 ? 's' : ''}</span>
                     </div>
                   </div>

@@ -197,7 +197,7 @@ const Login = () => {
               href="mailto:support@laxsystems.com"
               className="text-secondary hover:underline"
             >
-              support@laxsystems.com
+              info@laxgadgets.com
             </a>
           </p>
         </div>

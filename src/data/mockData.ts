@@ -2,9 +2,9 @@ import { Product, Order, Customer } from '@/types';
 
 export const currentCustomer: Customer = {
   id: 'cust-001',
-  name: 'John Mitchell',
-  email: 'john@acmecorp.com',
-  company: 'ACME Corporation',
+  name: 'Ross Stores Inc.',
+  email: 'msultan1978@gmail.com',
+  company: 'Ross Stores',
   assignedBrands: ['TechPro', 'IndustrialMax', 'SafetyFirst'],
   assignedSkus: [],
 };
@@ -102,49 +102,50 @@ export const products: Product[] = [
 
 export const orders: Order[] = [
   {
-    id: 'ORD-2024-001',
-    date: '2024-12-05',
+    id: '11413553',
+    date: '12-01-2025',
     status: 'delivered',
     items: [
       { ...products[0], quantity: 5 },
       { ...products[4], quantity: 20 },
     ],
     total: 3099.75,
-    poNumber: 'PO-AC-2024-089',
+    poNumber: '11413553',
     trackingNumber: '1Z999AA10123456784',
   },
   {
-    id: 'ORD-2024-002',
-    date: '2024-12-08',
+    id: '11414429',
+    date: '12-05-2025',
     status: 'shipped',
     items: [
       { ...products[2], quantity: 2 },
       { ...products[3], quantity: 4 },
     ],
     total: 2599.94,
-    poNumber: 'PO-AC-2024-092',
+    poNumber: '11414429',
     trackingNumber: '1Z999AA10123456785',
   },
   {
-    id: 'ORD-2024-003',
-    date: '2024-12-10',
+    id: '11413976',
+    date: '12-18-2025',
     status: 'approved',
     items: [
       { ...products[1], quantity: 3 },
       { ...products[6], quantity: 2 },
     ],
     total: 2109.95,
-    poNumber: 'PO-AC-2024-095',
+    poNumber: '11413976',
   },
   {
-    id: 'ORD-2024-004',
-    date: '2024-12-10',
+    id: '11527593',
+    date: '03-11-2026',
     status: 'pending',
     items: [
       { ...products[5], quantity: 50 },
       { ...products[7], quantity: 1 },
     ],
     total: 2649.49,
+    poNumber: '11527593',
   },
 ];
 

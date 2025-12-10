@@ -148,7 +148,9 @@ const Dashboard = () => {
                         <ClipboardList className="h-5 w-5 text-muted-foreground" />
                       </div>
                       <div>
+                        <span className='flex'>Order Id: &nbsp;
                         <p className="font-medium text-foreground">{order.id}</p>
+                        </span>
                         <p className="text-sm text-muted-foreground">
                           {order.items.length} item{order.items.length > 1 ? 's' : ''} • {order.date}
                         </p>
