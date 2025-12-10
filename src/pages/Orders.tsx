@@ -76,27 +76,6 @@ const Orders = () => {
                     </div>
                   </div>
 
-                  {/* Items Preview */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex -space-x-2">
-                      {order.items.slice(0, 3).map((item, i) => (
-                        <div
-                          key={item.id}
-                          className="w-10 h-10 rounded-lg bg-muted border-2 border-card flex items-center justify-center"
-                        >
-                          <Package className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                      ))}
-                      {order.items.length > 3 && (
-                        <div className="w-10 h-10 rounded-lg bg-muted border-2 border-card flex items-center justify-center">
-                          <span className="text-xs font-medium text-muted-foreground">
-                            +{order.items.length - 3}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
                   {/* Total & Actions */}
                   <div className="flex items-center justify-between lg:justify-end gap-4">
                     <div className="text-right">

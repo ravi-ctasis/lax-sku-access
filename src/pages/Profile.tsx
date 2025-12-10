@@ -80,9 +80,8 @@ export default function Profile() {
 
         {/* Tabs */}
         <Tabs defaultValue="personal" className="space-y-6">
-          <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full max-w-2xl">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-3 w-full max-w-2xl">
             <TabsTrigger value="personal">Personal Info</TabsTrigger>
-            <TabsTrigger value="business">Business</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
           </TabsList>
@@ -176,49 +175,6 @@ export default function Profile() {
                       disabled={!isEditing}
                     />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="business" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-primary" />
-                  Business Details
-                </CardTitle>
-                <CardDescription>Your company and business information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Company Name</Label>
-                    <Input value={currentCustomer.company} disabled />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Customer ID</Label>
-                    <Input value={currentCustomer.id} disabled />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Package className="h-5 w-5 text-primary" />
-                  Assigned Brands
-                </CardTitle>
-                <CardDescription>Brands you have access to order from</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {currentCustomer.assignedBrands.map((brand) => (
-                    <Badge key={brand} variant="secondary" className="text-sm py-1 px-3">
-                      {brand}
-                    </Badge>
-                  ))}
                 </div>
               </CardContent>
             </Card>
