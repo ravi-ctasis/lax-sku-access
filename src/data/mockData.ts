@@ -1,0 +1,152 @@
+import { Product, Order, Customer } from '@/types';
+
+export const currentCustomer: Customer = {
+  id: 'cust-001',
+  name: 'John Mitchell',
+  email: 'john@acmecorp.com',
+  company: 'ACME Corporation',
+  assignedBrands: ['TechPro', 'IndustrialMax', 'SafetyFirst'],
+  assignedSkus: [],
+};
+
+export const products: Product[] = [
+  {
+    id: '1',
+    sku: 'TP-001',
+    name: 'Industrial Power Drill',
+    brand: 'TechPro',
+    category: 'Power Tools',
+    price: 299.99,
+    stock: 45,
+    image: '/placeholder.svg',
+    description: 'Heavy-duty industrial power drill with variable speed control.',
+  },
+  {
+    id: '2',
+    sku: 'TP-002',
+    name: 'Cordless Impact Wrench',
+    brand: 'TechPro',
+    category: 'Power Tools',
+    price: 449.99,
+    stock: 32,
+    image: '/placeholder.svg',
+    description: 'High-torque cordless impact wrench for automotive applications.',
+  },
+  {
+    id: '3',
+    sku: 'IM-001',
+    name: 'Heavy Duty Workbench',
+    brand: 'IndustrialMax',
+    category: 'Workstations',
+    price: 599.99,
+    stock: 18,
+    image: '/placeholder.svg',
+    description: 'Steel frame workbench with adjustable height and storage.',
+  },
+  {
+    id: '4',
+    sku: 'IM-002',
+    name: 'Industrial Shelving Unit',
+    brand: 'IndustrialMax',
+    category: 'Storage',
+    price: 349.99,
+    stock: 67,
+    image: '/placeholder.svg',
+    description: 'Heavy-duty steel shelving unit with 5 adjustable shelves.',
+  },
+  {
+    id: '5',
+    sku: 'SF-001',
+    name: 'Safety Helmet Pro',
+    brand: 'SafetyFirst',
+    category: 'Safety Gear',
+    price: 79.99,
+    stock: 150,
+    image: '/placeholder.svg',
+    description: 'OSHA-compliant hard hat with suspension system.',
+  },
+  {
+    id: '6',
+    sku: 'SF-002',
+    name: 'Industrial Safety Goggles',
+    brand: 'SafetyFirst',
+    category: 'Safety Gear',
+    price: 34.99,
+    stock: 200,
+    image: '/placeholder.svg',
+    description: 'Anti-fog safety goggles with UV protection.',
+  },
+  {
+    id: '7',
+    sku: 'TP-003',
+    name: 'Precision Circular Saw',
+    brand: 'TechPro',
+    category: 'Power Tools',
+    price: 379.99,
+    stock: 28,
+    image: '/placeholder.svg',
+    description: 'Professional circular saw with laser guide system.',
+  },
+  {
+    id: '8',
+    sku: 'IM-003',
+    name: 'Tool Cabinet System',
+    brand: 'IndustrialMax',
+    category: 'Storage',
+    price: 899.99,
+    stock: 12,
+    image: '/placeholder.svg',
+    description: 'Rolling tool cabinet with 12 drawers and lockable compartments.',
+  },
+];
+
+export const orders: Order[] = [
+  {
+    id: 'ORD-2024-001',
+    date: '2024-12-05',
+    status: 'delivered',
+    items: [
+      { ...products[0], quantity: 5 },
+      { ...products[4], quantity: 20 },
+    ],
+    total: 3099.75,
+    poNumber: 'PO-AC-2024-089',
+    trackingNumber: '1Z999AA10123456784',
+  },
+  {
+    id: 'ORD-2024-002',
+    date: '2024-12-08',
+    status: 'shipped',
+    items: [
+      { ...products[2], quantity: 2 },
+      { ...products[3], quantity: 4 },
+    ],
+    total: 2599.94,
+    poNumber: 'PO-AC-2024-092',
+    trackingNumber: '1Z999AA10123456785',
+  },
+  {
+    id: 'ORD-2024-003',
+    date: '2024-12-10',
+    status: 'approved',
+    items: [
+      { ...products[1], quantity: 3 },
+      { ...products[6], quantity: 2 },
+    ],
+    total: 2109.95,
+    poNumber: 'PO-AC-2024-095',
+  },
+  {
+    id: 'ORD-2024-004',
+    date: '2024-12-10',
+    status: 'pending',
+    items: [
+      { ...products[5], quantity: 50 },
+      { ...products[7], quantity: 1 },
+    ],
+    total: 2649.49,
+  },
+];
+
+export const brands = ['TechPro', 'IndustrialMax', 'SafetyFirst'];
+export const categories = ['Power Tools', 'Workstations', 'Storage', 'Safety Gear'];
