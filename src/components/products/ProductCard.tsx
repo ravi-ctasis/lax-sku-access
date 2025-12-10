@@ -63,7 +63,15 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       <div className="relative aspect-square bg-muted overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
-          <Package className="h-16 w-16 text-muted-foreground/30" />
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.brand}
+              className="h-20 w-20 object-contain opacity-90"
+            />
+          ) : (
+            <Package className="h-10 w-10 text-muted-foreground/30" />
+          )}
         </div>
         <div className="absolute top-3 left-3">
           <Badge variant="secondary" className="text-xs font-medium">
