@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 interface HorizontalProductScrollProps {
   products: Product[];
-  title: string;
+  title?: string;
 }
 
 export function HorizontalProductScroll({ products, title }: HorizontalProductScrollProps) {
@@ -53,7 +53,7 @@ export function HorizontalProductScroll({ products, title }: HorizontalProductSc
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+        {title && <h2 className="text-2xl font-bold text-foreground">{title}</h2>}
         <div className="flex gap-2">
           <Button
             variant="outline"
