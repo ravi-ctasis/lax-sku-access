@@ -1,13 +1,38 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PortalLayout } from '@/components/layout/PortalLayout';
 import { useCart } from '@/context/CartContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ShoppingCart, Plus, Minus, Trash2, ArrowRight, Package } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ShoppingCart, Plus, Minus, Trash2, ArrowRight, Package, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { products } from '@/data/mockData';
+import { useWishlist } from '@/context/WishlistContext';
+import { toast } from 'sonner';
+import { useRef } from 'react';
+import { cn } from '@/lib/utils';
+import { HorizontalProductScroll } from '@/components/products/HorizontalProductScroll';
 
 const Cart = () => {
-  const { items, updateQuantity, removeItem, totalPrice, totalItems } = useCart();
+  const navigate = useNavigate();
+  const { items, updateQuantity, removeItem, totalPrice, totalItems, addItem } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();
+
+  // Get related items (items from same categories as cart items)
+  const cartCategories = [...new Set(items.map(item => item.category))];
+  const relatedItems = products
+    .filter(p => cartCategories.includes(p.category) && !items.some(i => i.id === p.id))
+    .slice(0, 4);
+
+  // Get recommended products (different from cart and related)
+  const recommendedProducts = products
+    .filter(p => !items.some(i => i.id === p.id) && !relatedItems.some(r => r.id === p.id))
+    .slice(0, 10);
+
+  const handleAddRelatedToCart = (product: typeof products[0]) => {
+    addItem(product, 1);
+    toast.success(`Added ${product.name} to cart`);
+  };
 
   if (items.length === 0) {
     return (
@@ -27,6 +52,14 @@ const Cart = () => {
                 Browse Products
               </Button>
             </Link>
+          </div>
+
+          {/* Recommended Products even when cart is empty */}
+          <div className="mt-12">
+            <HorizontalProductScroll 
+              products={products.slice(0, 10)} 
+              title="Popular Products" 
+            />
           </div>
         </div>
       </PortalLayout>
@@ -53,9 +86,16 @@ const Cart = () => {
               <Card key={item.id} className="shadow-card animate-scale-in">
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex gap-4">
-                    {/* Product Image Placeholder */}
-                    <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                      <Package className="h-10 w-10 text-muted-foreground/30" />
+                    {/* Product Image */}
+                    <div 
+                      className="w-24 h-24 lg:w-32 lg:h-32 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden"
+                      onClick={() => navigate(`/product/${item.id}`)}
+                    >
+                      {item.image ? (
+                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <Package className="h-10 w-10 text-muted-foreground/30" />
+                      )}
                     </div>
 
                     {/* Product Details */}
@@ -63,7 +103,12 @@ const Cart = () => {
                       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2">
                         <div>
                           <p className="text-xs text-muted-foreground">{item.sku}</p>
-                          <h3 className="font-semibold text-foreground">{item.name}</h3>
+                          <h3 
+                            className="font-semibold text-foreground cursor-pointer hover:text-primary transition-colors"
+                            onClick={() => navigate(`/product/${item.id}`)}
+                          >
+                            {item.name}
+                          </h3>
                           <p className="text-sm text-muted-foreground">{item.brand}</p>
                         </div>
                         <p className="text-lg font-bold text-foreground">
@@ -86,16 +131,14 @@ const Cart = () => {
                               value={item.quantity}
                               onChange={(e) => {
                                 const val = parseInt(e.target.value) || 1;
-                                updateQuantity(item.id, Math.min(Math.max(1, val), item.stock));
+                                updateQuantity(item.id, Math.max(1, val));
                               }}
                               className="w-16 text-center border-0 focus-visible:ring-0"
                               min={1}
-                              max={item.stock}
                             />
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              disabled={item.quantity >= item.stock}
-                              className="p-2 hover:bg-muted transition-colors disabled:opacity-50"
+                              className="p-2 hover:bg-muted transition-colors"
                             >
                               <Plus className="h-4 w-4" />
                             </button>
@@ -121,9 +164,9 @@ const Cart = () => {
             ))}
           </div>
 
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <Card className="shadow-card sticky top-20">
+          {/* Order Summary and Related Items */}
+          <div className="lg:col-span-1 space-y-4">
+            <Card className="shadow-card">
               <CardHeader>
                 <CardTitle className="text-lg">Order Summary</CardTitle>
               </CardHeader>
@@ -166,7 +209,56 @@ const Cart = () => {
                 </Link>
               </CardContent>
             </Card>
+
+            {/* Related Items - Vertical list max 4 items */}
+            {relatedItems.length > 0 && (
+              <Card className="shadow-card">
+                <CardHeader>
+                  <CardTitle className="text-lg">Related Items</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {relatedItems.map((product) => (
+                    <div 
+                      key={product.id} 
+                      className="flex gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+                      onClick={() => navigate(`/product/${product.id}`)}
+                    >
+                      <div className="w-16 h-16 rounded-lg bg-muted flex-shrink-0 overflow-hidden">
+                        <img 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-foreground text-sm line-clamp-2">{product.name}</h4>
+                        <p className="text-primary font-bold text-sm mt-1">${product.price.toFixed(2)}</p>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="h-8 w-8 p-0 flex-shrink-0"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddRelatedToCart(product);
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
           </div>
+        </div>
+
+        {/* Recommended Products - Horizontal Scroll */}
+        <div className="mt-8">
+          <HorizontalProductScroll 
+            products={recommendedProducts} 
+            title="You May Also Like" 
+          />
         </div>
       </div>
     </PortalLayout>

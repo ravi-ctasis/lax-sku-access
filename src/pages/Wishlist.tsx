@@ -7,7 +7,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Heart, ShoppingCart, Trash2, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
+import { products } from '@/data/mockData';
+import { HorizontalProductScroll } from '@/components/products/HorizontalProductScroll';
 
 export default function Wishlist() {
   const navigate = useNavigate();
@@ -42,23 +43,36 @@ export default function Wishlist() {
     });
   };
 
+  // Get recommended products (not in wishlist)
+  const recommendedProducts = products
+    .filter(p => !items.some(i => i.id === p.id))
+    .slice(0, 10);
+
   if (items.length === 0) {
     return (
       <PortalLayout>
-        <div className="flex flex-col items-center justify-center py-16 space-y-6">
-          <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center">
-            <Heart className="h-12 w-12 text-muted-foreground" />
+        <div className="space-y-12">
+          <div className="flex flex-col items-center justify-center py-16 space-y-6">
+            <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center">
+              <Heart className="h-12 w-12 text-muted-foreground" />
+            </div>
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-semibold text-foreground">Your Wishlist is Empty</h2>
+              <p className="text-muted-foreground max-w-md">
+                Start adding products you love to your wishlist. You can easily find them later!
+              </p>
+            </div>
+            <Button onClick={() => navigate('/products')} className="gap-2">
+              Browse Products
+              <ArrowRight className="h-4 w-4" />
+            </Button>
           </div>
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-semibold text-foreground">Your Wishlist is Empty</h2>
-            <p className="text-muted-foreground max-w-md">
-              Start adding products you love to your wishlist. You can easily find them later!
-            </p>
-          </div>
-          <Button onClick={() => navigate('/products')} className="gap-2">
-            Browse Products
-            <ArrowRight className="h-4 w-4" />
-          </Button>
+
+          {/* Recommended Products for Wishlist */}
+          <HorizontalProductScroll 
+            products={products.slice(0, 10)} 
+            title="Recommended For You" 
+          />
         </div>
       </PortalLayout>
     );
@@ -120,17 +134,10 @@ export default function Wishlist() {
                 </h3>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-primary">${product.price.toFixed(2)}</span>
-                  <span className={cn(
-                    "text-xs font-medium",
-                    product.stock > 20 ? "text-green-600" : product.stock > 0 ? "text-yellow-600" : "text-red-600"
-                  )}>
-                    {product.stock > 20 ? 'In Stock' : product.stock > 0 ? `${product.stock} left` : 'Out of Stock'}
-                  </span>
                 </div>
                 <Button 
                   className="w-full gap-2" 
                   onClick={() => handleAddToCart(product)}
-                  disabled={product.stock === 0}
                 >
                   <ShoppingCart className="h-4 w-4" />
                   Add to Cart
@@ -138,6 +145,14 @@ export default function Wishlist() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Recommended Products - Horizontal Scroll */}
+        <div className="mt-12">
+          <HorizontalProductScroll 
+            products={recommendedProducts} 
+            title="Recommended For Your Wishlist" 
+          />
         </div>
       </div>
     </PortalLayout>

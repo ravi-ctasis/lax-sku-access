@@ -24,7 +24,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (quantity > 0 && quantity <= product.stock) {
+    if (quantity > 0) {
       addItem(product, quantity);
       toast.success(`Added ${quantity}x ${product.name} to cart`);
       setQuantity(1);
@@ -44,9 +44,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const incrementQuantity = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (quantity < product.stock) {
-      setQuantity((prev) => prev + 1);
-    }
+    setQuantity((prev) => prev + 1);
   };
 
   const decrementQuantity = (e: React.MouseEvent) => {
@@ -70,7 +68,6 @@ export function ProductCard({ product }: ProductCardProps) {
               alt={product.brand || product.sku || 'product'}
               loading="lazy"
               onError={(e) => {
-                // fallback to placeholder if image fails to load
                 e.currentTarget.onerror = null;
                 e.currentTarget.src = '/images/placeholder-product.png';
               }}
@@ -99,23 +96,6 @@ export function ProductCard({ product }: ProductCardProps) {
           >
             <Heart className={cn("h-4 w-4", inWishlist && "fill-red-500")} />
           </button>
-        </div>
-
-        {/* STOCK BADGE */}
-        <div className="absolute bottom-3 right-3">
-          <Badge
-            variant="outline"
-            className={cn(
-              'text-xs font-medium',
-              product.stock > 20
-                ? 'border-success/30 text-success bg-success/5'
-                : product.stock > 0
-                  ? 'border-warning/30 text-warning bg-warning/5'
-                  : 'border-destructive/30 text-destructive bg-destructive/5'
-            )}
-          >
-            {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
-          </Badge>
         </div>
       </div>
       <CardContent className="p-4">
@@ -150,23 +130,20 @@ export function ProductCard({ product }: ProductCardProps) {
               value={quantity}
               onChange={(e) => {
                 const val = parseInt(e.target.value) || 1;
-                setQuantity(Math.min(Math.max(1, val), product.stock));
+                setQuantity(Math.max(1, val));
               }}
               className="w-14 text-center border-0 focus-visible:ring-0"
               min={1}
-              max={product.stock}
             />
             <button
               onClick={incrementQuantity}
-              disabled={quantity >= product.stock}
-              className="p-2 hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 hover:bg-muted transition-colors"
             >
               <Plus className="h-4 w-4" />
             </button>
           </div>
           <Button
             onClick={handleAddToCart}
-            disabled={product.stock === 0}
             className="flex-1 gap-2"
           >
             <ShoppingCart className="h-4 w-4" />
