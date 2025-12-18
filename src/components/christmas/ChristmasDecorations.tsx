@@ -35,9 +35,9 @@ const CornerDecoration = ({ position }: { position: 'left' | 'right' }) => (
   <div 
     className={`fixed top-16 ${position === 'left' ? 'left-2' : 'right-2'} pointer-events-none z-30`}
   >
-    <div className="text-4xl animate-swing">
+    {/* <div className="text-4xl animate-swing">
       {position === 'left' ? '🎄' : '🎅'}
-    </div>
+    </div> */}
   </div>
 );
 
@@ -130,15 +130,15 @@ export function ChristmasDecorations() {
       <FlyingSanta />
       
       {/* Bottom decorations */}
-      <div className="fixed bottom-4 left-4 pointer-events-none z-30 text-3xl animate-bounce">
+      {/* <div className="fixed bottom-4 left-4 pointer-events-none z-30 text-3xl animate-bounce">
+        
+      </div> */}
+      <div className="fixed bottom-4 right-4 pointer-events-none z-30 text-3xl animate-bounce" style={{ animationDelay: '0.5s' }}>
         🎁
       </div>
-      <div className="fixed bottom-4 right-4 pointer-events-none z-30 text-3xl animate-bounce" style={{ animationDelay: '0.5s' }}>
-        🎄
-      </div>
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 pointer-events-none z-30 text-2xl">
+      {/* <div className="fixed bottom-4 left-1/2 -translate-x-1/2 pointer-events-none z-30 text-2xl">
         ⛄ 🦌 🔔
-      </div>
+      </div> */}
     </>
   );
 }
