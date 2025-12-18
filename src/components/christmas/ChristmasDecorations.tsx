@@ -60,7 +60,7 @@ const FlyingSanta = () => {
       className="fixed top-24 pointer-events-none z-30 text-4xl"
       style={{ left: position, transition: 'none' }}
     >
-      🛷🎅
+      {/* 🛷🎅 */}
     </div>
   );
 };

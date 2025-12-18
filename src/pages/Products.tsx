@@ -153,7 +153,7 @@ const Products = () => {
             </div>
 
             {/* Price Range Filter */}
-            <div className="flex items-center gap-4 pt-2 border-t">
+            {/* <div className="flex items-center gap-4 pt-2 border-t">
               <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">Price Range:</span>
               <div className="flex-1 px-2">
                 <Slider
@@ -168,7 +168,7 @@ const Products = () => {
               <span className="text-sm font-medium text-foreground whitespace-nowrap">
                 ${priceRange[0]} - ${priceRange[1]}
               </span>
-            </div>
+            </div> */}
           </div>
 
           {/* Active Filters Display */}
