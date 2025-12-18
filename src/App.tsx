@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { ChristmasDecorations } from "@/components/christmas/ChristmasDecorations";
 import Login from "./pages/Login";
 import CreatePassword from "./pages/CreatePassword";
 import Dashboard from "./pages/Dashboard";
@@ -29,6 +30,7 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <ChristmasDecorations />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Navigate to="/login" replace />} />
