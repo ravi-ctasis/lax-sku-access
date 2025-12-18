@@ -27,7 +27,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'normal' ? 'christmas' : 'normal');
+    setTheme(prev => prev === 'christmas' ? 'normal' : 'christmas');
   };
 
   return (
