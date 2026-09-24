@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
-import { useTheme } from '@/context/ThemeContext';
 import {
   LayoutDashboard,
   Package,
@@ -14,8 +13,6 @@ import {
   X,
   User,
   Heart,
-  TreePine,
-  Sun,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -43,7 +40,6 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   const navigate = useNavigate();
   const { totalItems } = useCart();
   const { totalItems: wishlistItems } = useWishlist();
-  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
@@ -95,23 +91,6 @@ export function PortalLayout({ children }: PortalLayoutProps) {
 
             {/* Right Section */}
             <div className="flex items-center gap-2">
-              {/* Theme Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className={cn(
-                  "relative rounded-lg transition-all duration-200",
-                  theme === 'christmas' && "text-primary"
-                )}
-                title={theme === 'christmas' ? 'Switch to Normal Theme' : 'Switch to Christmas Theme'}
-              >
-                {theme === 'christmas' ? (
-                  <Sun className="h-5 w-5" />
-                ) : (
-                  <TreePine className="h-5 w-5 text-green-600" />
-                )}
-              </Button>
               {/* Wishlist */}
               <Link
                 to="/wishlist"

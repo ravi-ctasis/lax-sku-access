@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
-type Theme = 'normal' | 'christmas';
+type Theme = 'normal';
 
 interface ThemeContextType {
   theme: Theme;
@@ -11,30 +11,15 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('christmas'); // 👈 FORCE DEFAULT
+  const [theme, setTheme] = useState<Theme>('normal');
 
   useEffect(() => {
-    const saved = localStorage.getItem('app-theme') as Theme | null;
-
-    // ✅ Only use saved value if valid
-    if (saved === 'normal' || saved === 'christmas') {
-      setTheme(saved);
-    } else {
-      setTheme('christmas'); // default
-      localStorage.setItem('app-theme', 'christmas');
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('app-theme', theme);
-
-    document.documentElement.classList.remove('theme-normal', 'theme-christmas');
-    document.documentElement.classList.add(`theme-${theme}`);
+    localStorage.setItem('app-theme', 'normal');
+    document.documentElement.classList.remove('theme-christmas');
+    document.documentElement.classList.add('theme-normal');
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prev => (prev === 'normal' ? 'christmas' : 'normal'));
-  };
+  const toggleTheme = () => {};
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
